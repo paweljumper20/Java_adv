@@ -3,10 +3,12 @@ package taskmanager.controller;
 import taskmanager.model.Task;
 import taskmanager.model.User;
 
+import java.io.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Scanner;
 
-public class ApplicationController implements UserManager, TaskManager {
+public class ApplicationController implements UserManager, TaskManager, FileManager {
     @Override
     public Task addTask(String taskName, LocalDate deadline, User user) {
         Task task = new Task(taskName, LocalDate.now(), false, user);
@@ -91,4 +93,26 @@ public class ApplicationController implements UserManager, TaskManager {
     }
 
 
+    @Override
+    public void saveTasksToFile() throws IOException {
+        FileWriter pw = new FileWriter(FileManager.FILE_PATH);
+        for (User u:UserManager.users) {
+            for (Task t:u.getTasks()) {
+                pw.append(t.getTaskName() + ";" + t.getDeadline() + ";" + t.isStatus() + ";" + u.getName() + ";" + u.getLastName() + "\n");
+            }
+        }pw.close();
+    }
+
+    @Override
+    public void getDataFromFile() throws FileNotFoundException {
+        Scanner s = new Scanner(new File(FileManager.FILE_PATH));
+        while(s.hasNext()){
+            String line []= s.nextLine().split(";");
+            System.out.println("Task: " + line[0]);
+            System.out.println("Deadline: " + line[1]);
+            System.out.println("Status: " + line[2]);
+            System.out.println("User: " + line[3] + " " + line[4]);
+            s.nextLine();
+        }
+    }
 }

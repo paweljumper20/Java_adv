@@ -19,6 +19,8 @@ public class FileService {
         fs.readCsvFile("C:\\Users\\LEGION\\Desktop\\projects\\java_adv\\src\\main\\java\\fileio\\data.csv");
         fs.insertDataIntoFile("C:\\Users\\LEGION\\Desktop\\projects\\java_adv\\src\\main\\java\\fileio\\fromFileer.txt",
                 "Ala ma kota");
+
+
     }
 
     public void readCsvFile(String path) throws FileNotFoundException {
@@ -43,6 +45,11 @@ public class FileService {
         }
         s.close();
     }
+    public void appendDataIntoFile(String path,String data) throws IOException {
+        FileWriter fw = new FileWriter(new File(path),true);
+        fw.append(data+"\n");
+        fw.close();
+    }
 
     public void insertDataIntoFile(String path,String data) throws FileNotFoundException {
         PrintWriter pw = new PrintWriter(new File(path));
@@ -51,11 +58,6 @@ public class FileService {
         pw.close();
     }
 
-    public void appendDataIntoFile(String path,String data) throws IOException {
-        FileWriter fw = new FileWriter(new File(path),true);
-        fw.append(data);
-        fw.close();
-    }
 
 
 }
