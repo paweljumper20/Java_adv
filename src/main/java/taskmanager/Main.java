@@ -3,10 +3,11 @@ package taskmanager;
 import taskmanager.controller.ApplicationController;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         ApplicationController ac = new ApplicationController();
         ac.addUser("Michał","Kruczkowski");
         ac.addTask("Nauka programowania",LocalDate.of(2020, 2, 1),ac.getUserByIndex(2));
@@ -19,7 +20,7 @@ public class Main {
         ac.countuAfterDeadlineTasks(2);
         ac.printAllUsers();
         ac.saveTasksToFile();
-
+        ac.getDataFromFile();
 
 
     }
